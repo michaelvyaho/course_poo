@@ -1,0 +1,54 @@
+import math
+import logging
+
+# Configuration du logger
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logger = logging.getLogger(__name__)
+
+# Définition de la classe Point
+class Point:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+        logger.info(f"Point créé : ({self.x}, {self.y})")
+
+    def distance(self, other):
+        """Calcule la distance entre deux points."""
+        dist = math.sqrt((self.x - other.x) ** 2 + (self.y - other.y) ** 2)
+        logger.info(f"Distance calculée entre ({self.x}, {self.y}) et ({other.x}, {other.y}) : {dist}")
+        return dist
+
+# Définition de la classe Cercle
+class Cercle(Point):
+    def __init__(self, centre, perimetrique):
+        """
+        :param centre: Instance de la classe Point (centre du cercle)
+        :param perimetrique: Instance de la classe Point (point sur le périmètre)
+        """
+        if not isinstance(centre, Point) or not isinstance(perimetrique, Point):
+            logger.error("Les arguments doivent être des instances de la classe Point.")
+            raise ValueError("Les arguments doivent être des instances de la classe Point.")
+        
+        self.centre = centre
+        self.perimetrique = perimetrique
+        self.rayon = self.centre.distance(self.perimetrique)
+        logger.info(f"Cercle créé avec un rayon de {self.rayon:.2f}")
+
+    def surface(self):
+        """Calcule la surface du cercle."""
+        area = math.pi * self.rayon ** 2
+        logger.info(f"Surface du cercle calculée : {area:.2f}")
+        return area
+
+# Exemple d'utilisation
+if __name__ == "__main__":
+    # Création de deux points
+    centre = Point(0, 0)
+    perimetrique = Point(3, 4)
+
+    # Création du cercle
+    cercle = Cercle(centre, perimetrique)
+
+    # Calcul de la surface
+    surface_cercle = cercle.surface()
+    print(f"La surface du cercle est : {surface_cercle:.2f}")
