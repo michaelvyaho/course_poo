@@ -40,7 +40,7 @@ class Cercle(Point):
         logger.info(f"Surface du cercle calculée : {area:.2f}")
         return area
 
-# Exemple d'utilisation
+# Run for 2 points
 if __name__ == "__main__":
     # Création de deux points
     centre = Point(0, 0)
